@@ -1,0 +1,124 @@
+----------------------------------------------------------------------
+BUILDING INSTRUCTIONS: 
+
+imm: fffff
+rd:     0
+opcode: 37
+U instruction generated:  fffff037
+
+imm: 0
+rd:     0
+opcode: 17
+U instruction generated:  17
+
+imm: fffff
+rd:     0
+opcode: 6f
+UJ instruction generated:  ffeff06f
+
+imm: fffff
+rs1:    0
+funct3: 0
+rd:     0
+opcode: 67
+I instruction generated:  fff00067
+
+imm: fffff
+rs2:    0
+rs1:    0
+funct3: 0
+opcode: 63
+SB instruction generated:  fe000fe3
+
+imm: fffff
+rs2:    0
+rs1:    0
+funct3: 1
+opcode: 63
+SB instruction generated:  fe001fe3
+
+imm: fffff
+rs2:    0
+rs1:    0
+funct3: 4
+opcode: 63
+SB instruction generated:  fe004fe3
+
+imm: fffff
+rs2:    0
+rs1:    0
+funct3: 5
+opcode: 63
+SB instruction generated:  fe005fe3
+
+imm: fffff
+rs2:    0
+rs1:    0
+funct3: 6
+opcode: 63
+SB instruction generated:  fe006fe3
+
+imm: fffff
+rs2:    0
+rs1:    0
+funct3: 7
+opcode: 63
+SB instruction generated:  fe007fe3
+
+----------------------------------------------------------------------
+DUMPING ALL REGISTERS:
+
+x0:0
+x1:0
+x2:0
+x3:0
+x4:0
+x5:0
+x6:0
+x7:0
+x8:0
+x9:0
+xa:0
+xb:0
+xc:0
+xd:0
+xe:0
+xf:0
+x10:0
+x11:0
+x12:0
+x13:0
+x14:0
+x15:0
+x16:0
+x17:0
+x18:0
+x19:0
+x1a:0
+x1b:0
+x1c:0
+x1d:0
+x1e:0
+----------------------------------------------------------------------
+BEGINING EXECUTION LOG:
+
+At cycle 0: PC [0] Inst [fffff037] executed:
+ ----------------------------------------> LUI
+At cycle 1: PC [1] Inst [17] executed:
+ ----------------------------------------> AUIPC
+At cycle 2: PC [2] Inst [ffeff06f] executed:
+ ----------------------------------------> JAL
+At cycle 3: PC [3] Inst [fff00067] executed:
+ ----------------------------------------> JALR
+At cycle 4: PC [4] Inst [fe000fe3] executed:
+ ----------------------------------------> BEQ
+At cycle 5: PC [5] Inst [fe001fe3] executed:
+ ----------------------------------------> BNE
+At cycle 6: PC [6] Inst [fe004fe3] executed:
+ ----------------------------------------> BLT
+At cycle 7: PC [7] Inst [fe005fe3] executed:
+ ----------------------------------------> BGE
+At cycle 8: PC [8] Inst [fe006fe3] executed:
+ ----------------------------------------> BLTU
+At cycle 9: PC [9] Inst [fe007fe3] executed:
+ ----------------------------------------> BGEU

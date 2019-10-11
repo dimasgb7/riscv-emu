@@ -8,11 +8,19 @@
 #include <sstream>
 #include <new>
 
+#include "./cfg_defines.h"
 #include "./my_functions_file.c"
 
 #include "./cpu.c"
+
+//Temporary switchs for different ISA extensions
+
+
 int main (){
-	//Variables
+	//Dump log to output file
+    //freopen("out.txt","w",stdout);
+    
+    //Variables
 	int number1, number2;
 	std::string line;
 
@@ -37,8 +45,6 @@ int main (){
 	CPU_CONTEXT* my_context = calloc(1,sizeof(CPU_CONTEXT));
 
 	cpu_execute(my_context);
-
-
 
 
 
