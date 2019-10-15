@@ -137,7 +137,7 @@ uint32_t inst_build_U(uint32_t imm_31_12,
     return my_inst;
 }
 
-uint32_t inst_build_SB(uint32_t imm_12_1,    uint32_t rs2, 
+uint32_t inst_build_B(uint32_t imm_12_1,    uint32_t rs2, 
                       uint32_t rs1,        uint32_t funct3, 
                                            uint32_t opcode ){
     
@@ -174,7 +174,7 @@ uint32_t inst_build_SB(uint32_t imm_12_1,    uint32_t rs2,
     return my_inst;
 }
 
-uint32_t inst_build_UJ( uint32_t imm_20_1, 
+uint32_t inst_build_J( uint32_t imm_20_1, 
                         uint32_t rd,     uint32_t opcode ){
     
     uint32_t my_inst;
