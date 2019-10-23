@@ -1,5 +1,5 @@
 //Branch if Equal
-void OP_BEQ(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint32_t rd ){
+void OP_BEQ(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1){
 
    	
 	int32_t is_equal;
@@ -12,7 +12,7 @@ void OP_BEQ(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint3
 }
 
 //Branch if NOT equal
-void OP_BNE(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint32_t rd ){
+void OP_BNE(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1){
 
    	
 	int32_t is_equal;
@@ -25,7 +25,7 @@ void OP_BNE(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint3
 }
 
 //Branch if lower then 
-void OP_BLT(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint32_t rd ){
+void OP_BLT(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1){
 
 	int32_t is_lower;
 	
@@ -37,7 +37,7 @@ void OP_BLT(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint3
 }
 
 //Branch if bigger then 
-void OP_BGE(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint32_t rd ){
+void OP_BGE(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1){
    	
 	int32_t is_greater;
 	
@@ -49,7 +49,7 @@ void OP_BGE(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint3
 }
 
 //Branch if lower then 
-void OP_BLTU(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint32_t rd ){
+void OP_BLTU(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1){
 
 	int32_t is_lower;
 	
@@ -61,7 +61,7 @@ void OP_BLTU(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint
 }
 
 //Branch if bigger then 
-void OP_BGEU(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1, uint32_t rd ){
+void OP_BGEU(CPU_CONTEXT* context, int32_t imm, uint32_t rs2, uint32_t rs1){
 
 	int32_t is_greater;
 	

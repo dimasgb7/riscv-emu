@@ -2,25 +2,20 @@
 
 __version__ = "0.0.1"
 
+
 import pprint
 import os
 import csv
 import sys
-import configparser
 import argparse
 import subprocess
 import gzip
-import xlrd
-from lxml import etree
 from collections import OrderedDict, defaultdict
 from copy import deepcopy
 import re
 
 sys.dont_write_bytecode = True   # making sure python will not create a pyc file
 sys.path.insert(1,os.path.dirname(__file__))
-#from argactions import *
-#from mcu_base import *
-
 
 class SIM_gen():
     def __init__(self):
@@ -48,8 +43,7 @@ class SIM_gen():
             self.map_file ='dummy_func_file'
             destination_file_reg = open(self.map_file,'w')
 
-            #RTD_SIM 
-            self.src_file_name = "sim_csv/rtd_def.csv"
+            self.src_file_name = "test.csv"
             sheet_d = self.get_dict_from_csv(self.src_file_name,'name')
 
             
@@ -71,80 +65,7 @@ class SIM_gen():
             #CREATING RTD REGISTER METHODS 
             content_reg = self.create_header("RTD register check")
             content_reg += self.create_sim_functions(sheet_d,"RTD_SIM")
-           
-            #APD_SIM
-            self.src_file_name = "sim_csv/apd_def.csv"
-            sheet_d = self.get_dict_from_csv(self.src_file_name,'name')
-
-            self.map_file ='apd_sim_utils.h'
-            destination_file = open(self.map_file,'w')
-            
-            content  = self.create_file_header()
-            content +=self.create_header("APD_SIM")
-            content +=self.create_header_c("APD_SIM_UTILS")
           
-            content +=self.create_sim_defines(sheet_d,"APD_SIM")
-            
-            content +="\n"
-            content +="#endif"
-            destination_file.write(content)            
-            destination_file.close()
-            content = ""
-            
-            #CREATING APD REGISTER METHODS
-            content_reg += self.create_header("APD register check")
-            content_reg += self.create_sim_functions(sheet_d,"APD_SIM")
-            
-
-            #AVD_SIM
-            self.src_file_name = "sim_csv/avd_def.csv"
-            sheet_d = self.get_dict_from_csv(self.src_file_name,'name')
-
-            
-            self.map_file ='avd_sim_utils.h'
-            destination_file = open(self.map_file,'w')
-            
-            content  = self.create_file_header()
-            content +=self.create_header("AVD_SIM")
-            content +=self.create_header_c("AVD_SIM_UTILS")
-          
-            content +=self.create_sim_defines(sheet_d,"AVD_SIM")
-            
-            content +="\n"
-            content +="#endif"
-            destination_file.write(content)            
-            destination_file.close()
-            content = ""
-
-            #CREATING AVD REGISTER METHODS
-            content_reg += self.create_header("AVD register check")
-            content_reg += self.create_sim_functions(sheet_d,"AVD_SIM")
-            
-
-            #RTD_SEC_SIM
-            self.src_file_name = "sim_csv/rtd_sec_def.csv"
-            sheet_d = self.get_dict_from_csv(self.src_file_name,'name')
-
-            
-            self.map_file ='rtd_sec_sim_utils.h'
-            destination_file = open(self.map_file,'w')
-            
-            content  = self.create_file_header()
-            content +=self.create_header("RTD_SEC_SIM")
-            content +=self.create_header_c("RTD_SEC_SIM_UTILS")
-          
-            content +=self.create_sim_defines(sheet_d,"RTD_SEC_SIM")
-            
-            content +="\n"
-            content +="#endif"
-            destination_file.write(content)            
-            destination_file.close()
-            content = ""
-            
-            #CREATING RTD_SEC REGISTER METHOS s
-            content_reg += self.create_header("RTD_SEC register check")
-            content_reg += self.create_sim_functions(sheet_d,"RTD_SEC_SIM")
-           
             #Closing Registher Methods File
             destination_file_reg.write(content_reg)            
             destination_file_reg.close()

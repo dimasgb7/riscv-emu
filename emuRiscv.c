@@ -10,7 +10,7 @@
 
 #include "./cfg_defines.h"
 #include "./my_functions_file.c"
-
+#include "./memory.c"
 #include "./cpu.c"
 
 //Temporary switchs for different ISA extensions

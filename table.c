@@ -3,10 +3,10 @@
 #include "imediates.c"
 #include "base.c"
 
-#define R_INST(OPCODE) OP_##OPCODE(context,funct7,rs2,rs1,funct3,rd); 
+#define R_INST(OPCODE) OP_##OPCODE(context,funct7,rs2,rs1,rd); 
 #define I_INST(OPCODE) OP_##OPCODE(context,I_IMMEDIATE(inst),rs1,rd); 
-#define S_INST(OPCODE) OP_##OPCODE(context,S_IMMEDIATE(inst),rs2,rs1,funct3); 
-#define B_INST(OPCODE) OP_##OPCODE(context,B_IMMEDIATE(inst),rs2,rs1,funct3); 
+#define S_INST(OPCODE) OP_##OPCODE(context,S_IMMEDIATE(inst),rs2,rs1); 
+#define B_INST(OPCODE) OP_##OPCODE(context,B_IMMEDIATE(inst),rs2,rs1); 
 #define U_INST(OPCODE) OP_##OPCODE(context,U_IMMEDIATE(inst),rd); 
 #define J_INST(OPCODE) OP_##OPCODE(context,J_IMMEDIATE(inst),rd); 
     
@@ -35,52 +35,66 @@ void op_code_table(CPU_CONTEXT* context, uint32_t inst){
     
     #ifdef SET_DEBUG
     //Instructions execution
-    	std::cout<<"Instruction [" << get_opcode_name(opcode,funct3) <<"]" <<std::endl;
+	std::string my_opcode_name;
+    	my_opcode_name = get_opcode_name(opcode,funct3);
+	if(opcode == SRLI | opcode == SRAI)   
+    	if( I_IMMEDIATE(inst) & 0x400) my_opcode_name = "SRAI";
+	std::cout<<"Instruction [" << my_opcode_name <<"]" <<std::endl;
     #endif
 
 	switch(opcode)
 		{
             #ifdef SET_RV32I
-            case LUI: U_INST(LUI);
-                      break; 
-			
-            case AUIPC: U_INST(AUIPC);
-                        break;
-			
-	    case JAL: J_INST(JAL);
-			break;
-	    case JALR: I_INST(JALR); 
-		        break;
-		    
-            case BEQ_BNE_BLT_BGE_BLTU_BGEU: 
+            case LUI: 	U_INST(LUI);break; 
+            case AUIPC: U_INST(AUIPC);break;
+	    case JAL: 	J_INST(JAL);break;
+	    case JALR: 	I_INST(JALR);break;
+            case BRANCH: 
                    switch(funct3){
-		       case 0x0: B_INST(BEQ);
-                                 break;
-                      
-		       case 0x1: B_INST(BNE);
-                                 break;
-		       
-		       case 0x4: B_INST(BLT); 
-                                 break;
-                       
-		       case 0x5: B_INST(BGE);
-                                 break;
-                       
-		       case 0x6: B_INST(BLTU);
-                                 break;
-                       
-		       case 0x7: B_INST(BGEU);
-                                 break;
+		       case BEQ_F3: B_INST(BEQ);break;
+		       case BNE_F3: B_INST(BNE);break;
+		       case BLT_F3: B_INST(BLT);break;
+		       case BGE_F3: B_INST(BGE);break;
+		       case BLTU_F3: B_INST(BLTU);break;
+		       case BGEU_F3: B_INST(BGEU);break;
                    };
-                   
 		   break; 
             
+	    case LOAD: 
+                   switch(funct3){
+		       case LB_F3: I_INST(LB);break;
+		       case LH_F3: I_INST(LH);break;
+		       case LW_F3: I_INST(LW);break;
+		       case LBU_F3: I_INST(LBU);break;
+		       case LHU_F3: I_INST(LHU);break;
+                   };
+		   break; 
+	    
+	    case STORE: 
+                   switch(funct3){
+		       case SB_F3: S_INST(SB);break;
+		       case SH_F3: S_INST(SH);break;
+		       case SW_F3: S_INST(SW);break;
+                   };
+		   break; 
 
+	    case OPI: 
+                   switch(funct3){
+		       case ADDI_F3: I_INST(ADDI); break;
+		       case SLTI_F3: I_INST(SLTI); break;
+		       case SLTIU_F3: I_INST(SLTIU); break;
+		       case XORI_F3: I_INST(XORI); break;
+		       case ORI_F3:  I_INST(ORI); break;
+		       case ANDI_F3: I_INST(ANDI); break;
+		       case SLLI_F3: I_INST(SLLI); break;
+		       case SRLI_F3: I_INST(SRLI); break; //SRAI instruction implemented insided her
+                   };
+		   break;
     
             #endif
-			default: //unimplemented_inst();
-				    std::cout << "Instruction not implemented"<< std::endl;
-				    break;
+		default: //unimplemented_inst();
+		        std::cout << "Instruction not implemented"<< std::endl;
+		  break;
 		};
 
 

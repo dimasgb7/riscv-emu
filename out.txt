@@ -1,69 +1,34 @@
+g++ emuRiscv.c -o ./my.out -fpermissive -w -std=c++11 -g -O0
+./my.out
 ----------------------------------------------------------------------
 BUILDING INSTRUCTIONS: 
 
-imm: fffff
-rd:     0
+imm: 1
+rd:     1
 opcode: 37
-U instruction generated:  fffff037
+U instruction generated:  10b7
 
-imm: 0
-rd:     0
-opcode: 17
-U instruction generated:  17
+imm: 1
+rd:     2
+opcode: 37
+U instruction generated:  1137
 
-imm: fffff
-rd:     0
-opcode: 6f
-UJ instruction generated:  ffeff06f
-
-imm: fffff
-rs1:    0
-funct3: 0
-rd:     0
-opcode: 67
-I instruction generated:  fff00067
-
-imm: fffff
-rs2:    0
-rs1:    0
-funct3: 0
-opcode: 63
-SB instruction generated:  fe000fe3
-
-imm: fffff
-rs2:    0
-rs1:    0
+imm: 4
+rs2:    2
+rs1:    1
 funct3: 1
 opcode: 63
-SB instruction generated:  fe001fe3
+SB instruction generated:  209463
 
-imm: fffff
-rs2:    0
-rs1:    0
-funct3: 4
-opcode: 63
-SB instruction generated:  fe004fe3
+imm: fff
+rd:     1
+opcode: 37
+U instruction generated:  fff0b7
 
-imm: fffff
-rs2:    0
-rs1:    0
-funct3: 5
-opcode: 63
-SB instruction generated:  fe005fe3
-
-imm: fffff
-rs2:    0
-rs1:    0
-funct3: 6
-opcode: 63
-SB instruction generated:  fe006fe3
-
-imm: fffff
-rs2:    0
-rs1:    0
-funct3: 7
-opcode: 63
-SB instruction generated:  fe007fe3
+imm: aaa
+rd:     1
+opcode: 37
+U instruction generated:  aaa0b7
 
 ----------------------------------------------------------------------
 DUMPING ALL REGISTERS:
@@ -102,23 +67,23 @@ x1e:0
 ----------------------------------------------------------------------
 BEGINING EXECUTION LOG:
 
-At cycle 0: PC [0] Inst [fffff037] executed:
- ----------------------------------------> LUI
-At cycle 1: PC [1] Inst [17] executed:
- ----------------------------------------> AUIPC
-At cycle 2: PC [2] Inst [ffeff06f] executed:
- ----------------------------------------> JAL
-At cycle 3: PC [3] Inst [fff00067] executed:
- ----------------------------------------> JALR
-At cycle 4: PC [4] Inst [fe000fe3] executed:
- ----------------------------------------> BEQ
-At cycle 5: PC [5] Inst [fe001fe3] executed:
- ----------------------------------------> BNE
-At cycle 6: PC [6] Inst [fe004fe3] executed:
- ----------------------------------------> BLT
-At cycle 7: PC [7] Inst [fe005fe3] executed:
- ----------------------------------------> BGE
-At cycle 8: PC [8] Inst [fe006fe3] executed:
- ----------------------------------------> BLTU
-At cycle 9: PC [9] Inst [fe007fe3] executed:
- ----------------------------------------> BGEU
+At cycle 0: PC [0] Inst [10b7] Instruction [LUI]
+x0:0
+x1:1000
+x2:0
+----------------------------------------------------------------------
+At cycle 1: PC [4] Inst [1137] Instruction [LUI]
+x0:0
+x1:1000
+x2:1000
+----------------------------------------------------------------------
+At cycle 2: PC [8] Inst [209463] Instruction [BNE]
+x0:0
+x1:1000
+x2:1000
+----------------------------------------------------------------------
+At cycle 3: PC [c] Inst [fff0b7] Instruction [LUI]
+x0:0
+x1:fff000
+x2:1000
+----------------------------------------------------------------------

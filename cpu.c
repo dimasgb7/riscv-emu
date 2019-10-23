@@ -5,41 +5,44 @@
 #include "test_functions.h"
 //#include "<stdlib.h>" 
 
+
+
 int cpu_execute(CPU_CONTEXT* context){
 	//Dummy memory for test
 	uint32_t *dummy_mem;
 	dummy_mem = new uint32_t[10];
     //Build Instructions for test	
-    uint32_t number_of_instructions = 4 ;
+    uint32_t number_of_instructions = 9 ;
     uint32_t TEST_INST[number_of_instructions];
     
     print_bar();
     std::cout<<"BUILDING INSTRUCTIONS: "<< std::endl<<std::endl; 
-   
-    TEST_INST[0] = inst_build_U(0x1, 1, LUI);
-    TEST_INST[1] = inst_build_U(0x1, 2, LUI); 
-    TEST_INST[2] = inst_build_B(0x4, 2, 1, 0x1, BNE); 
+
+/*
+    INSTRUCTION BUILDING CHEAT SHEET
+
+    inst_build_R(funct7, rs2, rs1, funct3, rd, opcode);
+    inst_build_I(imm, rs1, funct3, rd, opcode);
+    inst_build_S(imm, rs2, rs1, funct3, opcode);
+    inst_build_B(imm, rs2, rs1, funct3, opcode);
+    inst_build_U(imm, rd, opcode);
+    inst_build_J(imm, rd, opcode);
+*/
+
+    TEST_INST[0] = inst_build_U(0xF, 1, LUI);
+    TEST_INST[1] = inst_build_U(0xF, 2, LUI); 
+    TEST_INST[2] = inst_build_B(0x4, 2, 1, BEQ_F3, BRANCH); 
     TEST_INST[3] = inst_build_U(0xFFF, 1, LUI);
-    TEST_INST[4] = inst_build_U(0xAAA, 1, LUI);
-
-    /*
-    TEST_INST[0] = inst_build_U(0x1, 1 , LUI);
-    TEST_INST[1] = inst_build_U(0x0, 2 , AUIPC);
-    TEST_INST[2] = inst_build_UJ(0x1 , 2 , JAL);
-    TEST_INST[3] = inst_build_U(0x0, 2 , AUIPC);
-    TEST_INST[4] = inst_build_I(0x0, 0 , 0 , 0 , JALR);
-    //TEST_INST[4] = inst_build_SB(0xFFFFF, 0 , 0 , 0 , BEQ); 
-    TEST_INST[5] = inst_build_SB(0xFFFFF, 0 , 0 , 1 , BEQ); 
-    TEST_INST[6] = inst_build_SB(0xFFFFF, 0 , 0 , 4 , BEQ); 
-    TEST_INST[7] = inst_build_SB(0xFFFFF, 0 , 0 , 5 , BEQ); 
-    TEST_INST[8] = inst_build_SB(0xFFFFF, 0 , 0 , 6 , BEQ); 
-    TEST_INST[9] = inst_build_SB(0xFFFFF, 0 , 0 , 7 , BEQ); 
-    */
-
-    //TEST_INST[2] = inst_build_S(0,0,0,4,0,BNE);
-    //TEST_INST[3] = inst_build_U(0,0,0,4,0,BNE);
-   
-
+    TEST_INST[4] = inst_build_U(0x1, 1, LUI);
+    TEST_INST[5] = inst_build_I(0x0, 1, LW_F3, 2, LOAD);
+    TEST_INST[6] = inst_build_S(0x1, 2, 1, SW_F3, STORE);
+    TEST_INST[7] = inst_build_I(0x1, 1, LW_F3, 1, LOAD);
+    TEST_INST[8] = inst_build_I(0x1, 1, SRLI_F3, 1, OPI);
+    TEST_INST[9] = inst_build_I(0x401, 2, SRAI_F3, 1, OPI);
+  	
+   	uint32_t position = 0x1000; 
+	RAM[position] = -37; //0x8F8F;
+	//RAM[position] = 0x8F8F;
     	load_dummy_memory(dummy_mem, sizeof(TEST_INST), TEST_INST);
         
     	uint32_t inst;
