@@ -210,23 +210,3 @@ uint32_t inst_build_J( uint32_t imm_20_1,
 
 
 
-//REGISTER METHODS
-static void dump_all_regs(CPU_CONTEXT* context){
-    print_bar();
-    
-    std::cout << "DUMPING ALL REGISTERS:"<<std::endl<<std::endl;
-    for(int i=0; i < 31; i++){
-    std::cout << "x"<<i <<":" << std::dec;
-    std::cout << context->xreg[i] <<std::hex<<std::endl;
-    }
-    
-
-}
-
-static void dump_reg(CPU_CONTEXT* context, uint32_t my_reg){
-    
-    std::cout <<"x" << my_reg << ":" << std::dec;
-    std::cout <<std::hex <<context->xreg[my_reg] << std::endl;
-}
-
-

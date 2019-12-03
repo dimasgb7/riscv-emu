@@ -1,9 +1,9 @@
 #include "op_codes.h"
 #include "cpu_utils.h"
-#include "imediates.c"
+//#include "imediates.c"
 #include "base.c"
 
-#define R_INST(OPCODE) OP_##OPCODE(context,funct7,rs2,rs1,rd); 
+#define R_INST(OPCODE) OP_##OPCODE(context, rs2,rs1,rd); 
 #define I_INST(OPCODE) OP_##OPCODE(context,I_IMMEDIATE(inst),rs1,rd); 
 #define S_INST(OPCODE) OP_##OPCODE(context,S_IMMEDIATE(inst),rs2,rs1); 
 #define B_INST(OPCODE) OP_##OPCODE(context,B_IMMEDIATE(inst),rs2,rs1); 
@@ -21,7 +21,7 @@ void op_code_table(CPU_CONTEXT* context, uint32_t inst){
     
     //Define instruction parts to be sampled    
 	uint8_t opcode; 
-	uint32_t rd, rs1, rs2, funct3;
+	uint32_t rd, rs1, rs2, funct3, funct7=0;
     	int32_t imm;
 	
     //Break instruction on data sets to be sampled
@@ -30,23 +30,40 @@ void op_code_table(CPU_CONTEXT* context, uint32_t inst){
     	rs1 = (inst & RS1_MASK) >> RS1_OFFSET;
     	rs2 = (inst & RS2_MASK) >> RS2_OFFSET;
     	funct3 = (inst & FUNCT3_MASK)>>12;
-    	imm = I_IMMEDIATE(inst);
+	funct7 = inst & FUNCT7_MASK;
+    	imm    = I_IMMEDIATE(inst);
     
     
     #ifdef SET_DEBUG
     //Instructions execution
 	std::string my_opcode_name;
-    	my_opcode_name = get_opcode_name(opcode,funct3);
-	if(opcode == SRLI | opcode == SRAI)   
-    	if( I_IMMEDIATE(inst) & 0x400) my_opcode_name = "SRAI";
+
+	my_opcode_name = get_opcode_name(opcode,funct3);
+
+	switch(opcode){
+		case SRLI: if(I_IMMEDIATE(inst) & 0x400) my_opcode_name ="SRAI";
+			   break;
+		case OP:
+			 my_opcode_name = get_opcode_name(opcode,funct3,funct7);
+			 break;
+	}
+					
+/*
+	if(opcode == SRLI){  
+    		if( I_IMMEDIATE(inst) & 0x400) my_opcode_name = "SRAI";
+		else my_opcode_name = get_opcode_name(opcode,funct3);	}
+	else if (opcode == ADD | opcode == SRL) funct7 = inst & FUNCT7_MASK;	
+    		my_opcode_name = get_opcode_name(opcode,funct3,funct7);} 
+*/
 	std::cout<<"Instruction [" << my_opcode_name <<"]" <<std::endl;
+
     #endif
 
 	switch(opcode)
 		{
             #ifdef SET_RV32I
             case LUI: 	U_INST(LUI);break; 
-            case AUIPC: U_INST(AUIPC);break;
+	    case AUIPC: U_INST(AUIPC);break;
 	    case JAL: 	J_INST(JAL);break;
 	    case JALR: 	I_INST(JALR);break;
             case BRANCH: 
@@ -90,7 +107,24 @@ void op_code_table(CPU_CONTEXT* context, uint32_t inst){
 		       case SRLI_F3: I_INST(SRLI); break; //SRAI instruction implemented insided her
                    };
 		   break;
-    
+   	    
+	    case OP: 
+                   switch(funct3){
+		       case ADD_F3: if(funct7) R_INST(SUB) 
+				    else       R_INST(ADD); 
+				    break;
+		       case SLL_F3: R_INST(SLL); break;
+		       case SLT_F3: R_INST(SLT); break;
+		       case SLTU_F3:  R_INST(SLTU); break;
+		       case XOR_F3: R_INST(XOR); break;
+		       case SRL_F3: if(funct7) R_INST(SRA) 
+				    else R_INST(SRL);
+				    break;
+		       case OR_F3: R_INST(OR); break; 
+		       case AND_F3: R_INST(AND); break; 
+                   };
+		   break;
+ 
             #endif
 		default: //unimplemented_inst();
 		        std::cout << "Instruction not implemented"<< std::endl;

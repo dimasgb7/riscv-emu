@@ -15,3 +15,4 @@ void load_rd(CPU_CONTEXT* context, uint32_t rd, uint32_t value) {
 #include "instructions/branch.h"
 #include "instructions/load.h"
 #include "instructions/store.h"
+#include "instructions/register.h"

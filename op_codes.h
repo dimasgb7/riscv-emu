@@ -37,7 +37,12 @@ enum RV32I_BASE_OP_CODES{
 	ANDI	=	0b0010011,
 	SLLI	=	0b0010011,
 	SRLI	=	0b0010011,
-	SRAI	=	0b0010011
+	SRAI	=	0b0010011,
+
+	OP	=	0b0110011,
+	ADD	=	0b0110011,
+	SUB	=	0b0110011,
+	SRL	=	0b0110011
 
     #endif
 };
@@ -71,13 +76,26 @@ enum RV32I_BASE_FUNCT3{
 	ANDI_F3	=	0b111,
 	SLLI_F3	=	0b001,
 	SRLI_F3	=	0b101,
-	SRAI_F3	=	0b101
+	SRAI_F3	=	0b101,
+	
+	ADD_F3 	= 	0b000,
+	SUB_F3 	= 	0b000,
+	SLL_F3 	= 	0b001,
+	SLT_F3 	= 	0b010,
+	SLTU_F3	= 	0b011,
+	XOR_F3 	= 	0b100,
+	SRL_F3 	= 	0b101,
+	SRA_F3 	= 	0b101,
+	OR_F3 	= 	0b110,
+	AND_F3 	= 	0b111,
+
+
 
     
 	#endif
 };
 
-const char* get_opcode_name(uint8_t opcode, uint32_t funct3)
+const char* get_opcode_name(uint8_t opcode, uint32_t funct3=0, uint32_t funct7=0)
 {
 
       switch (opcode)
@@ -128,6 +146,19 @@ const char* get_opcode_name(uint8_t opcode, uint32_t funct3)
 		    //case SRAI_F3 : return "SRAI";
 		  };	       
           
+	  case OP:
+		  switch(funct3)
+		  {
+		    case ADD_F3 : if(funct7) return "SUB"; else return "ADD" ;
+		    case SLL_F3 : return "SLL";
+		    case SLT_F3	: return "SLT";
+		    case XOR_F3 : return "XOR";
+		    case SRL_F3  : if(funct7) return "SRA"; else return "SRL";
+		    case OR_F3 	 : return "OR";
+		    case AND_F3  : return "AND";
+		  };	       
+          
+
           default: return "NO MAPPING";         
       }
 

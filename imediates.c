@@ -8,8 +8,8 @@ int32_t S_IMMEDIATE(uint32_t inst) {
 
     return (inst & IMM_S_11_MASK) >> (31 - 11) |
            (inst & IMM_S_10_5_MASK) >> (25 - 5) |
-           (inst & IMM_S_4_1_MASK) >> ( 8 - 1) |
-           (inst & IMM_S_0_MASK >> (7 - 0));
+           (inst & IMM_S_4_1_MASK) >> ( 8 - 1) | 
+           (inst & IMM_S_0_MASK) >> (7 - 0) ;
     
 }
 
