@@ -1,89 +1,258 @@
-g++ emuRiscv.c -o ./my.out -fpermissive -w -std=c++11 -g -O0
-./my.out
 ----------------------------------------------------------------------
 BUILDING INSTRUCTIONS: 
 
-imm: 1
+imm: f
 rd:     1
 opcode: 37
-U instruction generated:  10b7
+U instruction generated:  f0b7
 
-imm: 1
+imm: f
 rd:     2
 opcode: 37
-U instruction generated:  1137
+U instruction generated:  f137
 
 imm: 4
 rs2:    2
 rs1:    1
-funct3: 1
+funct3: 0
 opcode: 63
-SB instruction generated:  209463
+SB instruction generated:  208463
 
 imm: fff
 rd:     1
 opcode: 37
 U instruction generated:  fff0b7
 
-imm: aaa
+imm: 1
 rd:     1
 opcode: 37
-U instruction generated:  aaa0b7
+U instruction generated:  10b7
 
-----------------------------------------------------------------------
-DUMPING ALL REGISTERS:
+imm: 0
+rs1:    1
+funct3: 2
+rd:     2
+opcode: 1
+I instruction generated:  a101
 
-x0:0
-x1:0
-x2:0
-x3:0
-x4:0
-x5:0
-x6:0
-x7:0
-x8:0
-x9:0
-xa:0
-xb:0
-xc:0
-xd:0
-xe:0
-xf:0
-x10:0
-x11:0
-x12:0
-x13:0
-x14:0
-x15:0
-x16:0
-x17:0
-x18:0
-x19:0
-x1a:0
-x1b:0
-x1c:0
-x1d:0
-x1e:0
+imm: 1
+rs2:    2
+rs1:    1
+funct3: 2
+opcode: 23
+S instruction generated:  20a0a3
+
+imm: 1
+rs1:    1
+funct3: 2
+rd:     1
+opcode: 1
+I instruction generated:  10a081
+
+imm: 1
+rs1:    1
+funct3: 5
+rd:     1
+opcode: 13
+I instruction generated:  10d093
+
+imm: 401
+rs1:    2
+funct3: 5
+rd:     1
+opcode: 13
+I instruction generated:  40115093
+
+imm: e
+rd:     1
+opcode: 37
+U instruction generated:  e0b7
+
+imm: 1
+rd:     2
+opcode: 37
+U instruction generated:  1137
+
+Funct7: 0
+rs2:    2
+rs1:    1
+funct3: 0
+rd:     3
+opcode: 33
+R instruction generated:  2081b3
+
+Funct7: 1
+rs2:    2
+rs1:    1
+funct3: 0
+rd:     3
+opcode: 33
+R instruction generated:  22081b3
+
 ----------------------------------------------------------------------
 BEGINING EXECUTION LOG:
 
-At cycle 0: PC [0] Inst [10b7] Instruction [LUI]
-x0:0
-x1:1000
-x2:0
+At cycle 0:
+INST FETCH:f0b7
+IF STAGE:
+-PC [0] Instruction [f0b7]
+ID STAGE:
+-PC [0] Instruction [NO MAPPING]
+EX STAGE:
+-PC [0] Instruction [NO MAPPING] IMM [0]
+Instruction not implemented
 ----------------------------------------------------------------------
-At cycle 1: PC [4] Inst [1137] Instruction [LUI]
-x0:0
-x1:1000
-x2:1000
+At cycle 1:
+INST FETCH:f137
+IF STAGE:
+-PC [4] Instruction [f137]
+ID STAGE:
+-PC [0] Instruction [LUI]
+EX STAGE:
+-PC [0] Instruction [NO MAPPING] IMM [0]
+Instruction not implemented
 ----------------------------------------------------------------------
-At cycle 2: PC [8] Inst [209463] Instruction [BNE]
-x0:0
-x1:1000
-x2:1000
+At cycle 2:
+INST FETCH:208463
+IF STAGE:
+-PC [8] Instruction [208463]
+ID STAGE:
+-PC [4] Instruction [LUI]
+EX STAGE:
+-PC [0] Instruction [LUI] IMM [f000]
 ----------------------------------------------------------------------
-At cycle 3: PC [c] Inst [fff0b7] Instruction [LUI]
-x0:0
-x1:fff000
-x2:1000
+At cycle 3:
+INST FETCH:fff0b7
+IF STAGE:
+-PC [c] Instruction [fff0b7]
+ID STAGE:
+-PC [8] Instruction [BEQ]
+EX STAGE:
+-PC [4] Instruction [LUI] IMM [f000]
+----------------------------------------------------------------------
+At cycle 4:
+IF STAGE:
+-PC [c] Instruction [fff0b7]
+ID STAGE:
+-PC [8] Instruction [BEQ]
+EX STAGE:
+-PC [4] Instruction [LUI] IMM [f000]
+EXECUTION NOP SET!
+----------------------------------------------------------------------
+At cycle 5:
+INST FETCH:10b7
+IF STAGE:
+-PC [10] Instruction [10b7]
+ID STAGE:
+-PC [c] Instruction [LUI]
+EX STAGE:
+-PC [8] Instruction [BEQ] IMM [8]
+----------------------------------------------------------------------
+At cycle 6:
+INST FETCH:a101
+IF STAGE:
+-PC [14] Instruction [a101]
+ID STAGE:
+-PC [10] Instruction [LUI]
+EX STAGE:
+-PC [c] Instruction [LUI] IMM [fff000]
+----------------------------------------------------------------------
+At cycle 7:
+INST FETCH:20a0a3
+IF STAGE:
+-PC [18] Instruction [20a0a3]
+ID STAGE:
+-PC [14] Instruction [LW]
+EX STAGE:
+-PC [10] Instruction [LUI] IMM [1000]
+----------------------------------------------------------------------
+At cycle 8:
+IF STAGE:
+-PC [18] Instruction [20a0a3]
+ID STAGE:
+-PC [14] Instruction [LW]
+EX STAGE:
+-PC [10] Instruction [LUI] IMM [1000]
+EXECUTION NOP SET!
+----------------------------------------------------------------------
+At cycle 9:
+INST FETCH:10a081
+IF STAGE:
+-PC [1c] Instruction [10a081]
+ID STAGE:
+-PC [18] Instruction [SW]
+EX STAGE:
+-PC [14] Instruction [LW] IMM [0]
+----------------------------------------------------------------------
+At cycle a:
+IF STAGE:
+-PC [1c] Instruction [10a081]
+ID STAGE:
+-PC [18] Instruction [SW]
+EX STAGE:
+-PC [14] Instruction [LW] IMM [0]
+EXECUTION NOP SET!
+----------------------------------------------------------------------
+At cycle b:
+INST FETCH:10d093
+IF STAGE:
+-PC [20] Instruction [10d093]
+ID STAGE:
+-PC [1c] Instruction [LW]
+EX STAGE:
+-PC [18] Instruction [SW] IMM [1]
+----------------------------------------------------------------------
+At cycle c:
+INST FETCH:40115093
+IF STAGE:
+-PC [24] Instruction [40115093]
+ID STAGE:
+-PC [20] Instruction [SRLI]
+EX STAGE:
+-PC [1c] Instruction [LW] IMM [1]
+----------------------------------------------------------------------
+At cycle d:
+IF STAGE:
+-PC [24] Instruction [40115093]
+ID STAGE:
+-PC [20] Instruction [SRLI]
+EX STAGE:
+-PC [1c] Instruction [LW] IMM [1]
+EXECUTION NOP SET!
+----------------------------------------------------------------------
+At cycle e:
+INST FETCH:e0b7
+IF STAGE:
+-PC [28] Instruction [e0b7]
+ID STAGE:
+-PC [24] Instruction [SRLI]
+EX STAGE:
+-PC [20] Instruction [SRLI] IMM [1]
+----------------------------------------------------------------------
+At cycle f:
+IF STAGE:
+-PC [28] Instruction [e0b7]
+ID STAGE:
+-PC [24] Instruction [SRAI]
+EX STAGE:
+-PC [20] Instruction [SRLI] IMM [1]
+EXECUTION NOP SET!
+----------------------------------------------------------------------
+At cycle 10:
+INST FETCH:1137
+IF STAGE:
+-PC [2c] Instruction [1137]
+ID STAGE:
+-PC [28] Instruction [LUI]
+EX STAGE:
+-PC [24] Instruction [SRAI] IMM [401]
+----------------------------------------------------------------------
+At cycle 11:
+INST FETCH:2081b3
+IF STAGE:
+-PC [30] Instruction [2081b3]
+ID STAGE:
+-PC [2c] Instruction [LUI]
+EX STAGE:
+-PC [28] Instruction [LUI] IMM [e000]
 ----------------------------------------------------------------------
