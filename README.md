@@ -1,6 +1,6 @@
 # Sistema de emulação para arquiteturas RISC-V
 ## Sobre
-Projeto de um emulador para arquiteturas RISC-V utilizando c
+Projeto de um emulador para arquiteturas RISC-V
 ## Descrição
 O desenvolvimento de arquiteturas de unidades centrais de processamento é um trabalho de grande dificuldade, desde sua concepção até a implementação de seu hardware. Se faz necessário o conhecimento de diversas estruturas de sistemas digitais e como eles interagem entre si. Além disso, transicionar entre a fase de concepção e a fase de implementação física acarreta em mudanças imprevistas devido a limitações de funcionamento, que em muitos casos, apenas podem ser identificadas com analises práticas de seu funcionamento.
 
